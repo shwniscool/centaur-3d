@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.0.0",
+  "source_repo": "https://github.com/shwniscool/centaur-3d",
+  "source_commit": "f6f270691ff7eebd948f7ba43d3893b210db7383",
+  "components": [
+    {
+      "name": "centaur-3d",
+      "kind": "frontend",
+      "type": "typescript-package",
+      "root_path": ".",
+      "manifest_path": "package.json",
+      "description": "Interactive 3D visualization of Centaur's distributed agent architecture, built with Next.js 14 App Router, React Three Fiber, and Three.js. Renders three views (architecture, session lifecycle, pod lifecycle) on a single canvas.",
+      "internal_dependencies": [],
+      "external_dependencies": [
+        { "name": "next",                  "version": "14.2.18",   "category": "framework",        "purpose": "App Router, build, dev server, static export" },
+        { "name": "react",                 "version": "^18.3.1",   "category": "ui-runtime",       "purpose": "Component model + hooks" },
+        { "name": "react-dom",             "version": "^18.3.1",   "category": "ui-runtime",       "purpose": "DOM reconciler" },
+        { "name": "three",                 "version": "^0.169.0",  "category": "graphics",         "purpose": "WebGL renderer, geometries, materials, math primitives" },
+        { "name": "@react-three/fiber",    "version": "^8.17.10",  "category": "graphics",         "purpose": "React renderer for three.js (declarative scene graph + useFrame)" },
+        { "name": "@react-three/drei",     "version": "^9.114.0",  "category": "graphics",         "purpose": "Helpers: OrbitControls, Stars, Html overlay" },
+        { "name": "@types/node",           "version": "^20",       "category": "dev-types",        "purpose": "Node typings (devDependency)" },
+        { "name": "@types/react",          "version": "^18",       "category": "dev-types",        "purpose": "React typings (devDependency)" },
+        { "name": "@types/react-dom",      "version": "^18",       "category": "dev-types",        "purpose": "react-dom typings (devDependency)" },
+        { "name": "@types/three",          "version": "^0.169.0",  "category": "dev-types",        "purpose": "three.js typings (devDependency)" },
+        { "name": "typescript",            "version": "^5",        "category": "dev-tooling",      "purpose": "Type checking + tsc (devDependency)" }
+      ],
+      "key_files": [
+        "app/layout.tsx",
+        "app/page.tsx",
+        "app/globals.css",
+        "components/Scene.tsx",
+        "components/Node.tsx",
+        "components/Edge.tsx",
+        "components/views/Architecture.tsx",
+        "components/views/SessionLifecycle.tsx",
+        "components/views/PodLifecycle.tsx",
+        "next.config.js",
+        "tsconfig.json"
+      ],
+      "metadata": {
+        "framework": "next@14.2.18",
+        "router": "app",
+        "build_target": "static-export",
+        "deploy_target": "github-pages",
+        "deploy_base_path": "/centaur-3d",
+        "node_engine_in_workflow": "20"
+      }
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import SidePanel from "../components/SidePanel";
 
 const Scene = dynamic(() => import("../components/Scene"), { ssr: false });
 
@@ -37,7 +38,8 @@ export default function Page() {
           ))}
         </div>
       </div>
-      <div className="hint">drag to orbit · scroll to zoom · hover nodes</div>
+      <div className="hint">drag to orbit · scroll to zoom · click a node for details</div>
+      <SidePanel />
       <div className="legend">
         <div className="row"><span className="dot" style={{ background: "#6ea0ff" }} /> API / Gateway</div>
         <div className="row"><span className="dot" style={{ background: "#b08aff" }} /> Postgres</div>

@@ -3,6 +3,7 @@ import { Html } from "@react-three/drei";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Mesh } from "three";
+import { select, useSelection, SelectionPayload } from "../lib/selection";
 
 type Props = {
   position: [number, number, number];
@@ -11,15 +12,18 @@ type Props = {
   color: string;
   shape?: "box" | "sphere" | "cylinder" | "octahedron";
   size?: number;
+  data?: SelectionPayload;
 };
 
-export default function Node({ position, label, sub, color, shape = "box", size = 1 }: Props) {
+export default function Node({ position, label, sub, color, shape = "box", size = 1, data }: Props) {
   const ref = useRef<Mesh>(null!);
   const [hovered, setHovered] = useState(false);
+  const sel = useSelection();
+  const selected = !!(data && sel && sel.id === data.id);
   useFrame((_, dt) => {
     if (!ref.current) return;
-    ref.current.rotation.y += dt * (hovered ? 0.8 : 0.18);
-    const target = hovered ? 1.15 : 1.0;
+    ref.current.rotation.y += dt * (hovered || selected ? 0.8 : 0.18);
+    const target = selected ? 1.3 : hovered ? 1.15 : 1.0;
     ref.current.scale.x += (target - ref.current.scale.x) * 0.15;
     ref.current.scale.y = ref.current.scale.x;
     ref.current.scale.z = ref.current.scale.x;
@@ -29,19 +33,21 @@ export default function Node({ position, label, sub, color, shape = "box", size 
     shape === "cylinder" ? <cylinderGeometry args={[0.5 * size, 0.5 * size, 0.85 * size, 32]} /> :
     shape === "octahedron" ? <octahedronGeometry args={[0.7 * size, 0]} /> :
     <boxGeometry args={[1.1 * size, 0.85 * size, 1.1 * size]} />;
+  const interactive = !!data;
   return (
     <group position={position}>
       <mesh
         ref={ref}
-        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = "pointer"; }}
+        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); if (interactive) document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = "auto"; }}
+        onClick={interactive ? (e) => { e.stopPropagation(); select(data!); } : undefined}
         castShadow
       >
         {geo}
         <meshStandardMaterial
           color={color}
           emissive={color}
-          emissiveIntensity={hovered ? 0.6 : 0.25}
+          emissiveIntensity={selected ? 0.85 : hovered ? 0.6 : 0.25}
           roughness={0.35}
           metalness={0.4}
         />

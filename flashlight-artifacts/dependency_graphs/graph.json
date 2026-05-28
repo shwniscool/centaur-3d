@@ -1,0 +1,459 @@
+{
+  "schema_version": "2.0.0",
+  "source_repo": "https://github.com/shwniscool/centaur-3d",
+  "source_commit": "f6f270691ff7eebd948f7ba43d3893b210db7383",
+  "nodes": {
+    "components": {
+      "centaur-3d": {
+        "name": "centaur-3d",
+        "kind": "frontend",
+        "type": "typescript-package",
+        "root_path": ".",
+        "manifest_path": "package.json",
+        "description": "Interactive 3D visualization of Centaur's distributed agent architecture, built with Next.js 14 App Router, React Three Fiber, and Three.js. Renders three views (architecture, session lifecycle, pod lifecycle) on a single canvas.",
+        "internal_dependencies": [],
+        "external_dependencies": [
+          {
+            "name": "next",
+            "version": "14.2.18",
+            "category": "framework",
+            "purpose": "App Router, build, dev server, static export"
+          },
+          {
+            "name": "react",
+            "version": "^18.3.1",
+            "category": "ui-runtime",
+            "purpose": "Component model + hooks"
+          },
+          {
+            "name": "react-dom",
+            "version": "^18.3.1",
+            "category": "ui-runtime",
+            "purpose": "DOM reconciler"
+          },
+          {
+            "name": "three",
+            "version": "^0.169.0",
+            "category": "graphics",
+            "purpose": "WebGL renderer, geometries, materials, math primitives"
+          },
+          {
+            "name": "@react-three/fiber",
+            "version": "^8.17.10",
+            "category": "graphics",
+            "purpose": "React renderer for three.js (declarative scene graph + useFrame)"
+          },
+          {
+            "name": "@react-three/drei",
+            "version": "^9.114.0",
+            "category": "graphics",
+            "purpose": "Helpers: OrbitControls, Stars, Html overlay"
+          },
+          {
+            "name": "@types/node",
+            "version": "^20",
+            "category": "dev-types",
+            "purpose": "Node typings (devDependency)"
+          },
+          {
+            "name": "@types/react",
+            "version": "^18",
+            "category": "dev-types",
+            "purpose": "React typings (devDependency)"
+          },
+          {
+            "name": "@types/react-dom",
+            "version": "^18",
+            "category": "dev-types",
+            "purpose": "react-dom typings (devDependency)"
+          },
+          {
+            "name": "@types/three",
+            "version": "^0.169.0",
+            "category": "dev-types",
+            "purpose": "three.js typings (devDependency)"
+          },
+          {
+            "name": "typescript",
+            "version": "^5",
+            "category": "dev-tooling",
+            "purpose": "Type checking + tsc (devDependency)"
+          }
+        ],
+        "key_files": [
+          "app/layout.tsx",
+          "app/page.tsx",
+          "app/globals.css",
+          "components/Scene.tsx",
+          "components/Node.tsx",
+          "components/Edge.tsx",
+          "components/views/Architecture.tsx",
+          "components/views/SessionLifecycle.tsx",
+          "components/views/PodLifecycle.tsx",
+          "next.config.js",
+          "tsconfig.json"
+        ],
+        "metadata": {
+          "framework": "next@14.2.18",
+          "router": "app",
+          "build_target": "static-export",
+          "deploy_target": "github-pages",
+          "deploy_base_path": "/centaur-3d",
+          "node_engine_in_workflow": "20"
+        }
+      }
+    },
+    "external_services": {
+      "ext/next": {
+        "id": "ext/next",
+        "name": "next",
+        "category": "framework",
+        "node_type": "external_service",
+        "description": "App Router + static export"
+      },
+      "ext/react": {
+        "id": "ext/react",
+        "name": "react",
+        "category": "ui-runtime",
+        "node_type": "external_service",
+        "description": "Component model + hooks"
+      },
+      "ext/react-dom": {
+        "id": "ext/react-dom",
+        "name": "react-dom",
+        "category": "ui-runtime",
+        "node_type": "external_service",
+        "description": "DOM reconciler (transitive via next)"
+      },
+      "ext/three": {
+        "id": "ext/three",
+        "name": "three",
+        "category": "graphics",
+        "node_type": "external_service",
+        "description": "WebGL renderer + math primitives"
+      },
+      "ext/r3f": {
+        "id": "ext/r3f",
+        "name": "@react-three/fiber",
+        "category": "graphics",
+        "node_type": "external_service",
+        "description": "React renderer for three.js, Canvas, useFrame"
+      },
+      "ext/drei": {
+        "id": "ext/drei",
+        "name": "@react-three/drei",
+        "category": "graphics",
+        "node_type": "external_service",
+        "description": "OrbitControls, Stars, Html overlay"
+      },
+      "ext/typescript": {
+        "id": "ext/typescript",
+        "name": "typescript",
+        "category": "dev-tooling",
+        "node_type": "external_service",
+        "description": "Type checking"
+      },
+      "ext/github-pages": {
+        "id": "ext/github-pages",
+        "name": "GitHub Pages",
+        "category": "hosting-cdn",
+        "node_type": "external_service",
+        "description": "Static hosting target"
+      },
+      "ext/github-actions": {
+        "id": "ext/github-actions",
+        "name": "GitHub Actions",
+        "category": "ci-runtime",
+        "node_type": "external_service",
+        "description": "Build + deploy runner"
+      }
+    }
+  },
+  "edges": [
+    {
+      "source": "centaur-3d",
+      "target": "ext/next",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/react",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/react-dom",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/three",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/r3f",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/drei",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/typescript",
+      "type": "depends_on",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/github-pages",
+      "type": "integrates_with",
+      "confidence": 1.0
+    },
+    {
+      "source": "centaur-3d",
+      "target": "ext/github-actions",
+      "type": "integrates_with",
+      "confidence": 1.0
+    }
+  ],
+  "analysis": {
+    "centaur-3d": {
+      "summary": "Static-exported Next.js 14 App Router app rendering three React-Three-Fiber scenes (architecture, session lifecycle, pod lifecycle) over a shared Node/Edge primitive layer. No server runtime; deploys to GitHub Pages.",
+      "architecture_pattern": "client-only SPA with pluggable scene renderers",
+      "tech_stack": [
+        "next@14.2.18",
+        "react@18.3.1",
+        "three@0.169.0",
+        "@react-three/fiber@8.17.10",
+        "@react-three/drei@9.114.0",
+        "typescript@5",
+        "github-pages",
+        "github-actions"
+      ],
+      "internal_modules": [
+        {
+          "id": "app/layout",
+          "label": "RootLayout",
+          "kind": "frontend-shell",
+          "path": "app/layout.tsx",
+          "imports": [
+            "app/globals.css"
+          ],
+          "imported_by": []
+        },
+        {
+          "id": "app/page",
+          "label": "Page",
+          "kind": "frontend-page",
+          "path": "app/page.tsx",
+          "imports": [
+            "components/Scene"
+          ],
+          "imported_by": []
+        },
+        {
+          "id": "app/globals",
+          "label": "globals.css",
+          "kind": "frontend-style",
+          "path": "app/globals.css",
+          "imports": [],
+          "imported_by": [
+            "app/layout"
+          ]
+        },
+        {
+          "id": "components/Scene",
+          "label": "Scene",
+          "kind": "frontend-shell",
+          "path": "components/Scene.tsx",
+          "imports": [
+            "components/views/Architecture",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ],
+          "imported_by": [
+            "app/page"
+          ]
+        },
+        {
+          "id": "components/Node",
+          "label": "Node",
+          "kind": "frontend-primitive",
+          "path": "components/Node.tsx",
+          "imports": [],
+          "imported_by": [
+            "components/views/Architecture",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ]
+        },
+        {
+          "id": "components/Edge",
+          "label": "Edge",
+          "kind": "frontend-primitive",
+          "path": "components/Edge.tsx",
+          "imports": [],
+          "imported_by": [
+            "components/views/Architecture",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ]
+        },
+        {
+          "id": "components/views/Architecture",
+          "label": "Architecture view",
+          "kind": "frontend-view",
+          "path": "components/views/Architecture.tsx",
+          "imports": [
+            "components/Node",
+            "components/Edge"
+          ],
+          "imported_by": [
+            "components/Scene"
+          ]
+        },
+        {
+          "id": "components/views/SessionLifecycle",
+          "label": "SessionLifecycle view",
+          "kind": "frontend-view",
+          "path": "components/views/SessionLifecycle.tsx",
+          "imports": [
+            "components/Node",
+            "components/Edge"
+          ],
+          "imported_by": [
+            "components/Scene"
+          ]
+        },
+        {
+          "id": "components/views/PodLifecycle",
+          "label": "PodLifecycle view",
+          "kind": "frontend-view",
+          "path": "components/views/PodLifecycle.tsx",
+          "imports": [
+            "components/Node",
+            "components/Edge"
+          ],
+          "imported_by": [
+            "components/Scene"
+          ]
+        }
+      ],
+      "external_modules": [
+        {
+          "id": "ext/next",
+          "label": "next",
+          "kind": "framework",
+          "purpose": "App Router + static export",
+          "consumed_by": [
+            "app/page",
+            "app/layout"
+          ]
+        },
+        {
+          "id": "ext/react",
+          "label": "react",
+          "kind": "ui-runtime",
+          "purpose": "Component model + hooks",
+          "consumed_by": [
+            "app/page",
+            "components/Scene",
+            "components/Node",
+            "components/Edge",
+            "components/views/Architecture",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ]
+        },
+        {
+          "id": "ext/react-dom",
+          "label": "react-dom",
+          "kind": "ui-runtime",
+          "purpose": "DOM reconciler (transitive via next)",
+          "consumed_by": []
+        },
+        {
+          "id": "ext/three",
+          "label": "three",
+          "kind": "graphics",
+          "purpose": "WebGL renderer + math primitives",
+          "consumed_by": [
+            "components/Edge",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ]
+        },
+        {
+          "id": "ext/r3f",
+          "label": "@react-three/fiber",
+          "kind": "graphics",
+          "purpose": "React renderer for three.js, Canvas, useFrame",
+          "consumed_by": [
+            "components/Scene",
+            "components/Node",
+            "components/Edge",
+            "components/views/SessionLifecycle",
+            "components/views/PodLifecycle"
+          ]
+        },
+        {
+          "id": "ext/drei",
+          "label": "@react-three/drei",
+          "kind": "graphics",
+          "purpose": "OrbitControls, Stars, Html overlay",
+          "consumed_by": [
+            "components/Scene",
+            "components/Node"
+          ]
+        },
+        {
+          "id": "ext/typescript",
+          "label": "typescript",
+          "kind": "dev-tooling",
+          "purpose": "Type checking",
+          "consumed_by": []
+        },
+        {
+          "id": "ext/github-pages",
+          "label": "GitHub Pages",
+          "kind": "hosting-cdn",
+          "purpose": "Static hosting target",
+          "consumed_by": [
+            "centaur-3d"
+          ]
+        },
+        {
+          "id": "ext/github-actions",
+          "label": "GitHub Actions",
+          "kind": "ci-runtime",
+          "purpose": "Build + deploy runner",
+          "consumed_by": [
+            "centaur-3d"
+          ]
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "component_count": 1,
+    "external_service_count": 9,
+    "edge_count": 9,
+    "analyzed_count": 1,
+    "by_kind": {
+      "frontend": 1
+    },
+    "by_edge_type": {
+      "depends_on": 7,
+      "integrates_with": 2
+    }
+  }
+}
