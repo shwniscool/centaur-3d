@@ -1,0 +1,195 @@
+{
+  "source_repo": "https://github.com/shwniscool/centaur-3d",
+  "source_commit": "f6f270691ff7eebd948f7ba43d3893b210db7383",
+  "citations": [
+    {
+      "file_path": "package.json",
+      "start_line": 5,
+      "end_line": 10,
+      "claim": "Build uses next dev/build/start/lint scripts (no custom build wrapper)",
+      "section": "Architecture pattern",
+      "snippet": "  \"scripts\": {\n    \"dev\": \"next dev\",\n    \"build\": \"next build\",\n    \"start\": \"next start\",\n    \"lint\": \"next lint\"\n  },",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/package.json#L5-L10"
+    },
+    {
+      "file_path": "package.json",
+      "start_line": 11,
+      "end_line": 18,
+      "claim": "Runtime deps: next, react, react-dom, three, @react-three/fiber, @react-three/drei",
+      "section": "Tech stack",
+      "snippet": "  \"dependencies\": {\n    \"next\": \"14.2.18\",\n    \"react\": \"^18.3.1\",\n    \"react-dom\": \"^18.3.1\",\n    \"three\": \"^0.169.0\",\n    \"@react-three/fiber\": \"^8.17.10\",\n    \"@react-three/drei\": \"^9.114.0\"\n  },",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/package.json#L11-L18"
+    },
+    {
+      "file_path": "package.json",
+      "start_line": 19,
+      "end_line": 25,
+      "claim": "Dev deps: @types/node, @types/react, @types/react-dom, @types/three, typescript",
+      "section": "Tech stack",
+      "snippet": "  \"devDependencies\": {\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^18\",\n    \"@types/react-dom\": \"^18\",\n    \"@types/three\": \"^0.169.0\",\n    \"typescript\": \"^5\"\n  }",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/package.json#L19-L25"
+    },
+    {
+      "file_path": "next.config.js",
+      "start_line": 1,
+      "end_line": 11,
+      "claim": "Static export with basePath /centaur-3d in production only, images unoptimized",
+      "section": "Design decisions",
+      "snippet": "/** @type {import('next').NextConfig} */\nconst isProd = process.env.NODE_ENV === \"production\";\nconst repo = \"centaur-3d\";\n\nconst nextConfig = {\n  reactStrictMode: true,\n  output: \"export\",\n  images: { unoptimized: true },\n  basePath: isProd",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/next.config.js#L1-L11"
+    },
+    {
+      "file_path": "app/layout.tsx",
+      "start_line": 1,
+      "end_line": 15,
+      "claim": "RootLayout imports globals.css and sets static Metadata",
+      "section": "Key modules",
+      "snippet": "import type { Metadata } from \"next\";\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Centaur 3D Architecture\",\n  description: \"Interactive 3D visualization of Centaur's distributed agent architecture\",\n};\n\nexport def",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/layout.tsx#L1-L15"
+    },
+    {
+      "file_path": "app/page.tsx",
+      "start_line": 5,
+      "end_line": 5,
+      "claim": "Scene is dynamic-imported with ssr: false (three.js requires window)",
+      "section": "Design decisions",
+      "snippet": "const Scene = dynamic(() => import(\"../components/Scene\"), { ssr: false });",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/page.tsx#L5"
+    },
+    {
+      "file_path": "app/page.tsx",
+      "start_line": 9,
+      "end_line": 13,
+      "claim": "VIEWS registry of three view ids: architecture | session | pod",
+      "section": "Data flows",
+      "snippet": "const VIEWS: { id: View; label: string }[] = [\n  { id: \"architecture\", label: \"Architecture\" },\n  { id: \"session\", label: \"Session lifecycle\" },\n  { id: \"pod\", label: \"Pod lifecycle\" },\n];",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/page.tsx#L9-L13"
+    },
+    {
+      "file_path": "app/page.tsx",
+      "start_line": 15,
+      "end_line": 19,
+      "claim": "DESCRIPTIONS map provides the overlay copy for each view",
+      "section": "Data flows",
+      "snippet": "const DESCRIPTIONS: Record<View, string> = {\n  architecture: \"Slack/web messages hit the Centaur API, which persists state in Postgres, schedules sandbox pods on K8s, and proxies tool calls. Pods talk back through the call helper; results f",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/page.tsx#L15-L19"
+    },
+    {
+      "file_path": "app/page.tsx",
+      "start_line": 21,
+      "end_line": 52,
+      "claim": "Page holds view state and renders overlay + Scene",
+      "section": "Data flows",
+      "snippet": "export default function Page() {\n  const [view, setView] = useState<View>(\"architecture\");\n  return (\n    <>\n      <div className=\"ui-overlay\">\n        <h1>Centaur \u00b7 3D architecture</h1>\n        <p>{DESCRIPTIONS[view]}</p>\n        <div>\n   ",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/page.tsx#L21-L52"
+    },
+    {
+      "file_path": "app/page.tsx",
+      "start_line": 48,
+      "end_line": 48,
+      "claim": "Single outbound link to repo URL with rel='noreferrer'",
+      "section": "Security notes",
+      "snippet": "      <div className=\"credit\">built by <a href=\"https://github.com/shwniscool/centaur-3d\" target=\"_blank\" rel=\"noreferrer\">@centaur</a></div>",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/page.tsx#L48"
+    },
+    {
+      "file_path": "components/Scene.tsx",
+      "start_line": 9,
+      "end_line": 28,
+      "claim": "Canvas + lighting + Stars + OrbitControls, view-conditional render inside Suspense",
+      "section": "Key modules",
+      "snippet": "export default function Scene({ view }: { view: \"architecture\" | \"session\" | \"pod\" }) {\n  return (\n    <Canvas\n      camera={{ position: [14, 10, 18], fov: 50 }}\n      style={{ position: \"fixed\", inset: 0, background: \"radial-gradient(ellip",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/Scene.tsx#L9-L28"
+    },
+    {
+      "file_path": "components/Scene.tsx",
+      "start_line": 19,
+      "end_line": 19,
+      "claim": "Stars uses count=2500",
+      "section": "Performance notes",
+      "snippet": "      <Stars radius={120} depth={50} count={2500} factor={3} fade speed={0.4} />",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/Scene.tsx#L19"
+    },
+    {
+      "file_path": "components/Node.tsx",
+      "start_line": 16,
+      "end_line": 67,
+      "claim": "Node renders one of four geometries with emissive material and useFrame hover animation",
+      "section": "Key modules",
+      "snippet": "export default function Node({ position, label, sub, color, shape = \"box\", size = 1 }: Props) {\n  const ref = useRef<Mesh>(null!);\n  const [hovered, setHovered] = useState(false);\n  useFrame((_, dt) => {\n    if (!ref.current) return;\n    re",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/Node.tsx#L16-L67"
+    },
+    {
+      "file_path": "components/Node.tsx",
+      "start_line": 34,
+      "end_line": 39,
+      "claim": "Node has onPointerOver/onPointerOut but no onClick handler \u2014 root cause of the click-into-component bug",
+      "section": "Design decisions",
+      "snippet": "      <mesh\n        ref={ref}\n        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = \"pointer\"; }}\n        onPointerOut={() => { setHovered(false); document.body.style.cursor = \"auto\"; }}\n       ",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/Node.tsx#L34-L39"
+    },
+    {
+      "file_path": "components/Edge.tsx",
+      "start_line": 14,
+      "end_line": 47,
+      "claim": "Edge renders a THREE.Line (solid or dashed) with optional animated pulse sphere",
+      "section": "Key modules",
+      "snippet": "export default function Edge({ from, to, color = \"#6b758f\", animated = true, dashed = false }: Props) {\n  const lineRef = useRef<THREE.Line>(null!);\n  const pulseRef = useRef<THREE.Mesh>(null!);\n  const start = useMemo(() => new THREE.Vecto",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/Edge.tsx#L14-L47"
+    },
+    {
+      "file_path": "components/views/Architecture.tsx",
+      "start_line": 14,
+      "end_line": 92,
+      "claim": "Architecture view: hardcoded positions and edges for edge/api/postgres/k8s/tool/observability layers",
+      "section": "Key modules",
+      "snippet": "export default function Architecture() {\n  return (\n    <group>\n      {/* Edge / users (front) */}\n      <Node position={[-9, 0, 6]} label=\"Slack\" sub=\"user inbound\" color={COLORS.edge} shape=\"sphere\" />\n      <Node position={[-9, 2.2, 4]} ",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/views/Architecture.tsx#L14-L92"
+    },
+    {
+      "file_path": "components/views/SessionLifecycle.tsx",
+      "start_line": 8,
+      "end_line": 38,
+      "claim": "SessionLifecycle: 9-step linear flow with wobble",
+      "section": "Key modules",
+      "snippet": "const STEPS: Array<{ pos: [number, number, number]; label: string; sub: string; color: string }> = [\n  { pos: [-9, 3, 0], label: \"1. user message\", sub: \"Slack inbound\", color: \"#ff7d9a\" },\n  { pos: [-5, 2, 0], label: \"2. gateway\", sub: \"pe",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/views/SessionLifecycle.tsx#L8-L38"
+    },
+    {
+      "file_path": "components/views/PodLifecycle.tsx",
+      "start_line": 8,
+      "end_line": 54,
+      "claim": "PodLifecycle: 8-state circular orbit with central Recycling node and slow group spin",
+      "section": "Key modules",
+      "snippet": "const RADIUS = 6;\nconst STATES: Array<{ angle: number; label: string; sub?: string; color: string }> = [\n  { angle: 0,            label: \"Pending\",     sub: \"spawn enqueued\", color: \"#9aa6c0\" },\n  { angle: Math.PI / 4,  label: \"Scheduling\",",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/components/views/PodLifecycle.tsx#L8-L54"
+    },
+    {
+      "file_path": "app/globals.css",
+      "start_line": 1,
+      "end_line": 73,
+      "claim": "Body reset + fixed overlay/legend/hint/credit panels + pill styling",
+      "section": "Key modules",
+      "snippet": "* { margin: 0; padding: 0; box-sizing: border-box; }\nhtml, body, #__next { height: 100%; width: 100%; }\nbody {\n  background: #05060a;\n  color: #e6e9f0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Inter, Helvetica, Arial, s",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/app/globals.css#L1-L73"
+    },
+    {
+      "file_path": ".github/workflows/deploy.yml",
+      "start_line": 19,
+      "end_line": 33,
+      "claim": "Build job: npm ci \u2192 next build (NODE_ENV=production) \u2192 touch .nojekyll \u2192 upload Pages artifact",
+      "section": "Data flows",
+      "snippet": "    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: npm\n      - uses: actions/configure-pages@v5\n      - run: npm ci\n      - r",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/.github/workflows/deploy.yml#L19-L33"
+    },
+    {
+      "file_path": ".github/workflows/deploy.yml",
+      "start_line": 35,
+      "end_line": 44,
+      "claim": "Deploy job: actions/deploy-pages@v4 publishes to github-pages environment",
+      "section": "Data flows",
+      "snippet": "\n  deploy:\n    needs: build\n    runs-on: ubuntu-latest\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    steps:\n      - id: deployment\n        uses: actions/deploy-pages@v4",
+      "source_url": "https://github.com/shwniscool/centaur-3d/blob/f6f270691ff7eebd948f7ba43d3893b210db7383/.github/workflows/deploy.yml#L35-L44"
+    }
+  ]
+}

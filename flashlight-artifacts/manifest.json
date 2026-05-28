@@ -1,0 +1,9 @@
+{
+  "source_repo": "https://github.com/shwniscool/centaur-3d",
+  "source_commit": "f6f270691ff7eebd948f7ba43d3893b210db7383",
+  "schema_version": "2.0.0",
+  "generator": "flashlight-shaped (analyzer: claude-opus-4-7)",
+  "generator_note": "Sandbox lacked a usable DeepSeek/OpenRouter key, so the LLM analyzer phase was performed manually by reading source. Output schema matches Layr-Labs/github-flashlight v2.0.",
+  "model_requested": "deepseek/deepseek-v4-pro",
+  "generated_at": "2026-05-28T01:50:00Z"
+}

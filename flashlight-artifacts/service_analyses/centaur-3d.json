@@ -1,0 +1,216 @@
+{
+  "summary": "Static-exported Next.js 14 App Router app rendering three React-Three-Fiber scenes (architecture, session lifecycle, pod lifecycle) over a shared Node/Edge primitive layer. No server runtime; deploys to GitHub Pages.",
+  "architecture_pattern": "client-only SPA with pluggable scene renderers",
+  "tech_stack": [
+    "next@14.2.18",
+    "react@18.3.1",
+    "three@0.169.0",
+    "@react-three/fiber@8.17.10",
+    "@react-three/drei@9.114.0",
+    "typescript@5",
+    "github-pages",
+    "github-actions"
+  ],
+  "internal_modules": [
+    {
+      "id": "app/layout",
+      "label": "RootLayout",
+      "kind": "frontend-shell",
+      "path": "app/layout.tsx",
+      "imports": [
+        "app/globals.css"
+      ],
+      "imported_by": []
+    },
+    {
+      "id": "app/page",
+      "label": "Page",
+      "kind": "frontend-page",
+      "path": "app/page.tsx",
+      "imports": [
+        "components/Scene"
+      ],
+      "imported_by": []
+    },
+    {
+      "id": "app/globals",
+      "label": "globals.css",
+      "kind": "frontend-style",
+      "path": "app/globals.css",
+      "imports": [],
+      "imported_by": [
+        "app/layout"
+      ]
+    },
+    {
+      "id": "components/Scene",
+      "label": "Scene",
+      "kind": "frontend-shell",
+      "path": "components/Scene.tsx",
+      "imports": [
+        "components/views/Architecture",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ],
+      "imported_by": [
+        "app/page"
+      ]
+    },
+    {
+      "id": "components/Node",
+      "label": "Node",
+      "kind": "frontend-primitive",
+      "path": "components/Node.tsx",
+      "imports": [],
+      "imported_by": [
+        "components/views/Architecture",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ]
+    },
+    {
+      "id": "components/Edge",
+      "label": "Edge",
+      "kind": "frontend-primitive",
+      "path": "components/Edge.tsx",
+      "imports": [],
+      "imported_by": [
+        "components/views/Architecture",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ]
+    },
+    {
+      "id": "components/views/Architecture",
+      "label": "Architecture view",
+      "kind": "frontend-view",
+      "path": "components/views/Architecture.tsx",
+      "imports": [
+        "components/Node",
+        "components/Edge"
+      ],
+      "imported_by": [
+        "components/Scene"
+      ]
+    },
+    {
+      "id": "components/views/SessionLifecycle",
+      "label": "SessionLifecycle view",
+      "kind": "frontend-view",
+      "path": "components/views/SessionLifecycle.tsx",
+      "imports": [
+        "components/Node",
+        "components/Edge"
+      ],
+      "imported_by": [
+        "components/Scene"
+      ]
+    },
+    {
+      "id": "components/views/PodLifecycle",
+      "label": "PodLifecycle view",
+      "kind": "frontend-view",
+      "path": "components/views/PodLifecycle.tsx",
+      "imports": [
+        "components/Node",
+        "components/Edge"
+      ],
+      "imported_by": [
+        "components/Scene"
+      ]
+    }
+  ],
+  "external_modules": [
+    {
+      "id": "ext/next",
+      "label": "next",
+      "kind": "framework",
+      "purpose": "App Router + static export",
+      "consumed_by": [
+        "app/page",
+        "app/layout"
+      ]
+    },
+    {
+      "id": "ext/react",
+      "label": "react",
+      "kind": "ui-runtime",
+      "purpose": "Component model + hooks",
+      "consumed_by": [
+        "app/page",
+        "components/Scene",
+        "components/Node",
+        "components/Edge",
+        "components/views/Architecture",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ]
+    },
+    {
+      "id": "ext/react-dom",
+      "label": "react-dom",
+      "kind": "ui-runtime",
+      "purpose": "DOM reconciler (transitive via next)",
+      "consumed_by": []
+    },
+    {
+      "id": "ext/three",
+      "label": "three",
+      "kind": "graphics",
+      "purpose": "WebGL renderer + math primitives",
+      "consumed_by": [
+        "components/Edge",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ]
+    },
+    {
+      "id": "ext/r3f",
+      "label": "@react-three/fiber",
+      "kind": "graphics",
+      "purpose": "React renderer for three.js, Canvas, useFrame",
+      "consumed_by": [
+        "components/Scene",
+        "components/Node",
+        "components/Edge",
+        "components/views/SessionLifecycle",
+        "components/views/PodLifecycle"
+      ]
+    },
+    {
+      "id": "ext/drei",
+      "label": "@react-three/drei",
+      "kind": "graphics",
+      "purpose": "OrbitControls, Stars, Html overlay",
+      "consumed_by": [
+        "components/Scene",
+        "components/Node"
+      ]
+    },
+    {
+      "id": "ext/typescript",
+      "label": "typescript",
+      "kind": "dev-tooling",
+      "purpose": "Type checking",
+      "consumed_by": []
+    },
+    {
+      "id": "ext/github-pages",
+      "label": "GitHub Pages",
+      "kind": "hosting-cdn",
+      "purpose": "Static hosting target",
+      "consumed_by": [
+        "centaur-3d"
+      ]
+    },
+    {
+      "id": "ext/github-actions",
+      "label": "GitHub Actions",
+      "kind": "ci-runtime",
+      "purpose": "Build + deploy runner",
+      "consumed_by": [
+        "centaur-3d"
+      ]
+    }
+  ]
+}
